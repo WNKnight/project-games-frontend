@@ -1,5 +1,6 @@
 import React from 'react';
 import GameCard from './GameCard';
+import Preloader from './Preloader'
 
 function GameGrid ({ games, loading }) {
   return (
