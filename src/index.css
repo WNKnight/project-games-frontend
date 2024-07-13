@@ -1,5 +1,6 @@
-@import url(./blocks//header.css);
+@import url(./vendor/normalize.css);
 @import url(./fonts//montserrat.css);
+@import url(./blocks//header.css);
 
 body {
   margin: 0;
