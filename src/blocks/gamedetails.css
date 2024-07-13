@@ -1,0 +1,159 @@
+.game-details {
+    width: 100%;
+    margin: 0;
+    border-radius: 10px;
+    text-align: justify;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .game-details__title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .game-details__image-block {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .game-details__image {
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .game-details__block {
+    width: 95%;
+  }
+  
+  .game-details__description {
+    margin: 20px 0;
+    text-align: justify;
+    line-height: 1.6;
+    font-weight: 400;
+    word-wrap: break-word;
+    padding: 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  h2,
+  h3 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .game-details__link {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .game-details__similar-games {
+    width: 100%;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .character-details__games-list{
+    margin: 5px 0;
+  }
+  
+  .game-details__franchises,
+  .game-details__characters {
+    margin:0;
+    width: 95%;
+  }
+  
+  .game-details__info {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    gap: 5px;
+  }
+  
+  .game-details__similar-games-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.625rem;
+    font-weight: 500;
+  }
+  
+  .game-details__similar-games-block{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .game-details__similar-games-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .game-details__similar-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .game-details__similar-link:hover {
+    text-decoration: underline;
+  }
+  
+  .game-details__error-message {
+    text-align: center;
+    margin-top: 1.25rem;
+    font-size: 1.2rem;
+    color: #ff0000;
+  }
+  
+  @media (max-width: 768px) {
+    .game-details {
+      font-size: 0.9rem;
+    }
+  
+    .game-details__title {
+      font-size: 1.3rem;
+    }
+  
+    h2,
+    h3 {
+      font-size: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .game-details {
+      font-size: 0.8rem;
+    }
+  
+    .game-details__title {
+      font-size: 1.3rem;
+    }
+  
+    .game-details__similar-games-title,
+    .game-details__franchises h3 {
+      font-size: 1.3rem;
+    }
+  
+    .game-details__image-block,
+    figure,
+    img {
+      max-width: 88%;
+    }
+  
+    h2,
+    h3 {
+      font-size: 1.4rem;
+    }
+  }

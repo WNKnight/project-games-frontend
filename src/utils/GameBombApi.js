@@ -51,3 +51,28 @@ export async function fetchTotalGamesCount() {
 
   return data.number_of_total_results;
 }
+
+export async function fetchGameDetails(id) {
+  const endpoint = `/api/game/${id}/?api_key=${API_KEY}&format=json`;
+  const data = await makeRequest(endpoint);
+
+  if (!data.results) {
+    throw new Error('No results found in the response');
+  }
+
+  const { results } = data;
+  return {
+    id: results.id,
+    name: results.name,
+    image: results.image.super_url,
+    description: results.description,
+    characters: results.characters?.map((char) => ({ id: char.id, name: char.name })) || [],
+    developers: results.developers?.map((dev) => dev.name) || [],
+    franchises: results.franchises?.map((franchise) => ({ id: franchise.id, name: franchise.name })) || [],
+    platforms: results.platforms?.map((platform) => platform.name) || [],
+    publishers: results.publishers?.map((publisher) => publisher.name) || [],
+    genres: results.genres?.map((genre) => genre.name) || [],
+    releaseDate: results.original_release_date,
+    similarGames: results.similar_games?.map((game) => ({ id: game.id, name: game.name })) || [],
+  };
+}
