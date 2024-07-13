@@ -1,0 +1,31 @@
+.header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header__title {
+    font-size: 1.7rem;
+    margin: 0 20px 0 0;
+  }
+  
+  @media (max-width: 768px) {
+  .header {
+    padding: 10px;
+    }
+  .header__title {
+    font-size: 1.3rem;
+    }
+  }
+    
+    @media (max-width: 576px) {
+  .header {
+    padding: 10px;
+   }
+  .header__title {
+    font-size: 1.2rem;
+   }
+  }
