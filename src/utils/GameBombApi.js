@@ -35,3 +35,19 @@ export async function fetchRandomGames(limit = 12) {
   const offset = Math.floor(Math.random() * 10000);
   return fetchGames({ limit, offset, sortOrder: null });
 }
+
+export async function fetchCatalogGames(itemsPerPage, offset, sortBy) {
+  const sortOrder = sortBy === 'asc' ? 'name:asc' : 'name:desc';
+  return fetchGames({ limit: itemsPerPage, offset, sortOrder });
+}
+
+export async function fetchTotalGamesCount() {
+  const endpoint = `/api/games/?api_key=${API_KEY}&format=json`;
+  const data = await makeRequest(endpoint);
+
+  if (!data.number_of_total_results) {
+    throw new Error('No total results count found in the response');
+  }
+
+  return data.number_of_total_results;
+}
