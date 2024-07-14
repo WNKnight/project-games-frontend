@@ -52,6 +52,21 @@ export async function fetchTotalGamesCount() {
   return data.number_of_total_results;
 }
 
+export async function fetchGamesBySearchTerm(searchTerm) {
+  const endpoint = `/api/games/?api_key=${API_KEY}&format=json&filter=name:${searchTerm}`;
+  const data = await makeRequest(endpoint);
+
+  if (!data.results) {
+    throw new Error('No results found in the response');
+  }
+
+  return data.results.map((game) => ({
+    id: game.id,
+    name: game.name,
+    image: game.image.original_url,
+  }));
+}
+
 export async function fetchGameDetails(id) {
   const endpoint = `/api/game/${id}/?api_key=${API_KEY}&format=json`;
   const data = await makeRequest(endpoint);

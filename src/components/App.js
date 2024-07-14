@@ -6,6 +6,7 @@ import Main from './Main';
 import Random from './Random'
 import Catalog from './Catalog'
 import GameDetails from './GameDetails';
+import SearchResults from './SearchResults';
 import About from './About'
 import Footer from './Footer';
 
@@ -17,6 +18,7 @@ function App() {
       <Main>
       <Routes>
         <Route path="/" element={<Random />} />
+        <Route path="/search-results" element={<SearchResults />} />
         <Route path="/catalog/:page" element={<Catalog />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/game/:id" element={<GameDetails />} />

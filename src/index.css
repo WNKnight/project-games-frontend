@@ -1,6 +1,7 @@
 @import url(./vendor/normalize.css);
 @import url(./fonts/montserrat.css);
 @import url(./blocks/header.css);
+@import url(./blocks/search.css);
 @import url(./blocks/navigation.css);
 @import url(./blocks/main.css);
 @import url(./blocks/gamecard.css);
