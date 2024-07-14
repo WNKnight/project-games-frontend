@@ -108,3 +108,22 @@ export async function fetchFranchiseDetails(id) {
     games: data.results.games?.map((game) => ({ id: game.id, name: game.name })) || [],
   };
 }
+
+export async function fetchCharacterDetails(id) {
+  const endpoint = `/api/character/${id}/?api_key=${API_KEY}&format=json`;
+  const data = await makeRequest(endpoint);
+
+  if (!data.results) {
+    throw new Error('No results found in the response');
+  }
+
+  return {
+    id: data.results.id,
+    name: data.results.name,
+    resume: data.results.deck,
+    description: data.results.description,
+    games: data.results.games?.map((game) => ({ id: game.id, name: game.name })) || [],
+    franchises: data.results.franchises?.map((franchise) => ({ id: franchise.id, name: franchise.name })) || [],
+    image: data.results.image?.medium_url || '',
+  };
+}

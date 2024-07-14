@@ -8,6 +8,7 @@ import Catalog from './Catalog'
 import SearchResults from './SearchResults';
 import GameDetails from './GameDetails';
 import FranchiseDetails from './FranchiseDetails'
+import CharacterDetails from './CharacterDetails'
 import About from './About'
 import Footer from './Footer';
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/catalog/:page" element={<Catalog />} />       
         <Route path="/game/:id" element={<GameDetails />} />
         <Route path="/franchise/:id" element={<FranchiseDetails />} />
+        <Route path="/character/:id" element={<CharacterDetails />} />
         <Route path="/about" element={<About />} />
       </Routes>
       </Main>
