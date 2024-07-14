@@ -5,8 +5,9 @@ import Navigation from './Navigation';
 import Main from './Main';
 import Random from './Random'
 import Catalog from './Catalog'
-import GameDetails from './GameDetails';
 import SearchResults from './SearchResults';
+import GameDetails from './GameDetails';
+import FranchiseDetails from './FranchiseDetails'
 import About from './About'
 import Footer from './Footer';
 
@@ -19,9 +20,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Random />} />
         <Route path="/search-results" element={<SearchResults />} />
-        <Route path="/catalog/:page" element={<Catalog />} />
         <Route path="/catalog" element={<Catalog />} />
+        <Route path="/catalog/:page" element={<Catalog />} />       
         <Route path="/game/:id" element={<GameDetails />} />
+        <Route path="/franchise/:id" element={<FranchiseDetails />} />
         <Route path="/about" element={<About />} />
       </Routes>
       </Main>
