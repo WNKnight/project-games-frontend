@@ -4,16 +4,16 @@ import { fetchGamesBySearchTerm } from '../utils/GameBombApi';
 import Preloader from './Preloader';
 import searchIcon from '../images/search-icon.png';
 
-const SearchForm = () => {
-const [searchTerm, setSearchTerm] = useState('');
-const [suggestions, setSuggestions] = useState([]);
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState('');
-const navigate = useNavigate();
-const suggestionsRef = useRef(null);
-const formRef = useRef(null);
+function SearchForm() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const suggestionsRef = useRef(null);
+  const formRef = useRef(null);
 
-useEffect(() => {
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (
         suggestionsRef.current &&
@@ -34,23 +34,28 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    if (searchTerm.length >= 3) {
-      setLoading(true);
-      const loadSuggestions = async () => {
-        try {
-          const results = await fetchGamesBySearchTerm(searchTerm);
-          setSuggestions(results.slice(0, 5));
-        } catch {
-          setSuggestions([]);
-        } finally {
-          setLoading(false);
-        }
-      };
+    const debounceTimeout = setTimeout(() => {
+      if (searchTerm.length >= 3) {
+        setLoading(true);
+        const loadSuggestions = async () => {
+          try {
+            const results = await fetchGamesBySearchTerm(searchTerm);
+            setSuggestions(results.slice(0, 5));
+          } catch (error) {
+            console.error('Error loading suggestions:', error);
+            setSuggestions([]);
+          } finally {
+            setLoading(false);
+          }
+        };
 
-      loadSuggestions();
-    } else {
-      setSuggestions([]);
-    }
+        loadSuggestions();
+      } else {
+        setSuggestions([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(debounceTimeout);
   }, [searchTerm]);
 
   const handleChange = (event) => {
@@ -79,44 +84,45 @@ useEffect(() => {
     setSearchTerm('');
     setSuggestions([]);
   };
+
   return (
-      <div className="search">
-        <form className="search__form" onSubmit={handleSubmit} ref={formRef}>
-          <input
-            type="text"
-            placeholder="Search for a game..."
-            value={searchTerm}
-            onChange={handleChange}
-            minLength="3"
-            required
-            className="search__input"
-          />
-          <img src={searchIcon} alt="Search" className="search__icon" onClick={handleSubmit} />
-        </form>
-        {error && <div className="search__error">{error}</div>}
-        {searchTerm.length >= 3 && (
-          <div className="search__suggestions" ref={suggestionsRef}>
-            {loading ? (
-              <Preloader />
+    <div className="search">
+      <form className="search__form" onSubmit={handleSubmit} ref={formRef}>
+        <input
+          type="text"
+          placeholder="Search for a game..."
+          value={searchTerm}
+          onChange={handleChange}
+          minLength="3"
+          required
+          className="search__input"
+        />
+        <img src={searchIcon} alt="Search" className="search__icon" onClick={handleSubmit} />
+      </form>
+      {error && <div className="search__error">{error}</div>}
+      {searchTerm.length >= 3 && (
+        <div className="search__suggestions" ref={suggestionsRef}>
+          {loading ? (
+            <Preloader />
+          ) : (
+            suggestions.length > 0 ? (
+              suggestions.map((game) => (
+                <div
+                  key={game.id}
+                  className="suggestion"
+                  onClick={() => handleSuggestionClick(game.id)}
+                >
+                  <img className="suggestion__img" src={game.image} alt={game.name} />
+                  <span className="suggestion__name">{game.name}</span>
+                </div>
+              ))
             ) : (
-              suggestions.length > 0 ? (
-                suggestions.map((game) => (
-                  <div
-                    key={game.id}
-                    className="suggestion"
-                    onClick={() => handleSuggestionClick(game.id)}
-                  >
-                    <img className="suggestion__img" src={game.image} alt={game.name} />
-                    <span className="suggestion__name">{game.name}</span>
-                  </div>
-                ))
-              ) : (
-                <div className="search__no-suggestions">Nothing Found</div>
-              )
-            )}
-          </div>
-        )}
-      </div>
+              <div className="search__no-suggestions">Nothing Found</div>
+            )
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 

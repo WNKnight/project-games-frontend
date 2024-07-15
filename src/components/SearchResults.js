@@ -4,7 +4,7 @@ import GameGrid from './GameGrid';
 import { fetchGamesBySearchTerm } from '../utils/GameBombApi';
 import Preloader from './Preloader';
 
-const SearchResults = () => {
+function SearchResults() {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('query');
   const [games, setGames] = useState([]);
