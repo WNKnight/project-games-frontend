@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GameGrid from './GameGrid';
-import { fetchRandomGames } from '../utils/GameBombApi';
+import { fetchRandomGames } from '../utils/GiantBombApi';
 
 function Random() {
   const [games, setGames] = useState([]);
@@ -16,7 +16,7 @@ function Random() {
       setGames(fetchedGames);
     } catch (err) {
       setError(
-        'Desculpe, algo deu errado durante a solicitação. Pode haver um problema de conexão ou o servidor pode estar inativo. Por favor, tente novamente mais tarde.'
+        'Sorry, something went wrong during the request. There may be a connection problem or the server may be down. Please try again later.'
       );
     } finally {
       setLoading(false);

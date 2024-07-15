@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import GameGrid from './GameGrid';
-import { fetchGamesBySearchTerm } from '../utils/GameBombApi';
+import { fetchGamesBySearchTerm } from '../utils/GiantBombApi';
 import Preloader from './Preloader';
 
 function SearchResults() {

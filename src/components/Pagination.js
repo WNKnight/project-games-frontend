@@ -12,7 +12,10 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   return (
     <div className="pagination">
       {currentPage > 1 && (
-        <button className="pagination__button" onClick={() => onPageChange(1)}>&lt;</button>
+        <button className="pagination__button" onClick={() => onPageChange(1)}>&lt;&lt;</button>
+      )}
+      {currentPage > 1 && (
+        <button className="pagination__button" onClick={() => onPageChange(currentPage - 1)}>&lt;</button>
       )}
       {getPageNumbers().map(page => (
         <button 
@@ -24,7 +27,10 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
         </button>
       ))}
       {currentPage < totalPages && (
-        <button className="pagination__button" onClick={() => onPageChange(totalPages)}>&gt;</button>
+        <button className="pagination__button" onClick={() => onPageChange(currentPage + 1)}>&gt;</button>
+      )}
+      {currentPage < totalPages && (
+        <button className="pagination__button" onClick={() => onPageChange(totalPages)}>&gt;&gt;</button>
       )}
     </div>
   );

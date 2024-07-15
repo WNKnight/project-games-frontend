@@ -15,8 +15,12 @@ async function makeRequest(endpoint) {
   return response.json();
 }
 
+function cleanName(name) {
+  return name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+}
+
 async function fetchGames({ limit, offset, sortOrder }) {
-  const endpoint = `/api/games/?api_key=${API_KEY}&format=json&limit=${limit}&offset=${offset}${sortOrder ? `&sort=${sortOrder}` : ''}`;
+  const endpoint = `/api/games/?api_key=${API_KEY}&format=json&limit=${limit}&offset=${offset}&sort=${sortOrder}`;
   const data = await makeRequest(endpoint);
 
   if (!data.results) {
@@ -25,11 +29,12 @@ async function fetchGames({ limit, offset, sortOrder }) {
 
   return data.results.map((game) => ({
     id: game.id,
-    name: game.name,
+    name: cleanName(game.name),
     image: game.image.thumb_url,
     deck: game.deck
   }));
 }
+
 
 export async function fetchRandomGames(limit = 12) {
   const offset = Math.floor(Math.random() * 10000);
@@ -38,8 +43,11 @@ export async function fetchRandomGames(limit = 12) {
 
 export async function fetchCatalogGames(itemsPerPage, offset, sortBy) {
   const sortOrder = sortBy === 'asc' ? 'name:asc' : 'name:desc';
+  console.log(`Fetching catalog games with itemsPerPage: ${itemsPerPage}, offset: ${offset}, sortOrder: ${sortOrder}`); // Adicione este log para verificar os parâmetros
+
   return fetchGames({ limit: itemsPerPage, offset, sortOrder });
 }
+
 
 export async function fetchTotalGamesCount() {
   const endpoint = `/api/games/?api_key=${API_KEY}&format=json`;

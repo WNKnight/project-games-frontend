@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchCatalogGames, fetchTotalGamesCount } from '../utils/GameBombApi';
+import { fetchCatalogGames, fetchTotalGamesCount } from '../utils/GiantBombApi';
 import Preloader from './Preloader';
 import GameGrid from './GameGrid';
 import Pagination from './Pagination';
@@ -34,7 +34,7 @@ function Catalog() {
         setTotalPages(Math.ceil(totalGamesCount / itemsPerPage));
         setError(null);
       } catch (err) {
-        setError('Erro ao buscar jogos. Tente novamente mais tarde.');
+        setError('Error when searching for games. Try again later.');
       } finally {
         setLoading(false);
       }
@@ -63,11 +63,11 @@ function Catalog() {
   }
 
   if (error) {
-    return <div>Erro: {error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   if (notFound) {
-    return <div>Nada Encontrado</div>;
+    return <div>Nothing Found</div>;
   }
 
   return (
@@ -77,8 +77,8 @@ function Catalog() {
         <label className="catalog__order-block">
         Order by:
           <select value={sortBy} onChange={handleChangeSortOrder}>
-            <option value="asc">A-Z</option>
-            <option value="desc">Z-A</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
           </select>
         </label>
         <label className="catalog__order-block">
