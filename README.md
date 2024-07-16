@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Projeto Games Frontend
+Este é um projeto frontend desenvolvido em React para exibir informações de jogos usando a API Giant Bomb.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Funcionalidades
+- **Pesquisa de Jogos:** Permite aos usuários pesquisar jogos pelo nome.
+- **Resultados de Pesquisa:** Exibe os resultados da pesquisa em uma grade de jogos.
+- **Jogos Aleatórios:** Mostra uma seleção aleatória de jogos na página inicial.
+- **Detalhes dos Jogos:** Exibe detalhes de um jogo específico, incluindo descrição, personagens, desenvolvedores, franquias, plataformas, publicadoras, gêneros, data de lançamento e jogos similares.
+- **Detalhes das Franquias:** Exibe detalhes de uma franquia específica, incluindo descrição, resumo e jogos relacionados.
+- **Detalhes dos Personagens:** Exibe detalhes de um personagem específico, incluindo descrição, resumo, jogos relacionados, franquias e imagem.
+- **Catálogo de Jogos:** Lista jogos com paginação e ordenação, permitindo a visualização de jogos em diferentes páginas.
+- **Navegação:** Permite navegar entre diferentes seções do aplicativo (Home, Catálogo, Sobre).
+- **Tratamento de Erros:** Redireciona para uma página de erro personalizada se uma rota não existir.
 
-## Available Scripts
+## Estrutura do Projeto
+O projeto é estruturado com vários componentes principais:
 
-In the project directory, you can run:
+- **SearchForm:** Componente de pesquisa que permite aos usuários pesquisar jogos pelo nome. Ele sugere jogos enquanto o usuário digita e redireciona para os resultados da pesquisa.
+- **SearchResults:** Exibe os resultados da pesquisa de jogos com base no termo de pesquisa inserido pelo usuário.
+- **Random:** Mostra uma seleção aleatória de jogos na página inicial, com a capacidade de atualizar os jogos exibidos.
+- **Navigation:** Navegação entre as diferentes seções do aplicativo, com um menu responsivo para dispositivos móveis.
+- **NotFound:** Página de erro personalizada para redirecionar usuários quando uma rota não existir.
+- **Main e GameGrid:** Componentes para estruturação e exibição dos jogos.
+- **GameCard:** Exibe informações de um jogo individual em formato de cartão.
+- **Preloader:** Exibe um indicador de carregamento enquanto os dados estão sendo buscados.
+- **GameDetails:** Exibe informações detalhadas sobre um jogo específico.
+- **FranchiseDetails:** Exibe informações detalhadas sobre uma franquia específica.
+- **CharacterDetails:** Exibe informações detalhadas sobre um personagem específico.
+- **Catalog:** Componente que lista jogos com paginação e ordenação, permitindo a visualização de jogos em diferentes páginas.
 
-### `npm start`
+## Instalação e Uso
+Para executar o projeto localmente, siga estas etapas:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone o repositório: `git clone https://github.com/seu-usuario/project-games-frontend.git`
+2. Instale as dependências: `npm install`
+3. Inicie o servidor de desenvolvimento: `npm start`
+4. Abra seu navegador e acesse `http://localhost:3000`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Dependências Principais
+- React: Biblioteca JavaScript para criar interfaces de usuário.
+- React Router DOM: Roteamento para aplicativos React.
+- Dompurify: Biblioteca para sanitizar HTML, prevenindo ataques XSS (Cross-Site Scripting).
+- Outras dependências incluem ferramentas de teste e utilitários para manipulação de dados.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir um pull request ou relatar problemas.
