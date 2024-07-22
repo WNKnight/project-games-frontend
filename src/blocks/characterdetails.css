@@ -1,0 +1,122 @@
+.character-details {
+    width: 95%;
+    margin: 0;
+    border-radius: 10px;
+    text-align: justify;
+    font-size: 1rem;
+  }
+  
+  .character-details__title{
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .character-details__image-block,
+  figure,
+  img {
+    max-width: 55%;
+    display: block;
+    margin: 0;
+  }
+  
+  ul{
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .character-details__image {
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .character-details__block {
+    width: 100%;
+  }
+  
+  .character-details__description {
+    margin: 20px 0;
+    text-align: justify;
+    line-height: 1.6;
+    font-weight: 400;
+    word-wrap: break-word;
+    padding: 0;
+  }
+  
+  .character-details__franchises,
+  .character-details__games {
+    margin-top: 20px;
+  }
+  
+  .character-details__games-block,
+  .character-franchises__block {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .character-details__games-list,
+  .character-franchises__franchises-list {
+    margin: 5px 0;
+  }
+  
+  .character-details__games-link,
+  .character-details__franchise-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .character-details__games-link:hover,
+  .character-details__franchise-link:hover {
+    text-decoration: underline;
+  }
+  
+  .character-details__error-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #ff0000;
+  }
+  
+  h2,
+  h3 {
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .character-details {
+      font-size: 0.9rem;
+    }
+  
+    .character-details__image-block,
+    figure,
+    img {
+      max-width: 65%;
+    }
+  
+    h2,
+    h3 {
+      font-size: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .character-details {
+      font-size: 0.8rem;
+    }
+  
+    .character-details__games h3,
+    .character-details__franchises h3 {
+      font-size: 1.3rem;
+    }
+  
+    .character-details__image-block,
+    figure,
+    img {
+      max-width: 88%;
+    }
+  
+    h2,
+    h3 {
+      font-size: 1.5rem;
+    }
+  }
