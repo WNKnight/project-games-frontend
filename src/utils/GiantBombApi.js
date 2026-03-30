@@ -38,8 +38,12 @@ async function fetchGames({ limit = 12, page = 1, ordering }) {
 
 
 export async function fetchRandomGames(limit = 12) {
-  const offset = Math.floor(Math.random() * 10000);
-  return fetchGames({ limit, offset, sortOrder: null });
+  const page = Math.floor(Math.random() * 50) + 1;
+  return fetchGames({
+    limit,
+    page,
+  });
+  
 }
 
 export async function fetchCatalogGames(itemsPerPage, page, sortBy) {
