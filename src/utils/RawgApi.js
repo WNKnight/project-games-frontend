@@ -45,12 +45,46 @@ export async function fetchGames({ limit = 12, page = 1, sortBy }) {
     .slice((page - 1) * limit, page * limit);
 }
 
-export async function fetchRandomGames(limit = 12) {
-const games = await fetchGames({ limit: 40, page: 1 });
+let usedGameIds = new Set();
 
-return games
-  .sort(() => Math.random() - 0.5)
-  .slice(0, limit); 
+export async function fetchRandomGames(limit = 12) {
+  const pagesToFetch = 5;
+
+  let allResults = [];
+
+  for (let i = 1; i <= pagesToFetch; i++) {
+    const randomPage = Math.floor(Math.random() * 10) + 1;
+
+    const endpoint = `${BASE_URL}/games?key=${API_KEY}&page=${randomPage}&page_size=40`;
+    const data = await makeRequest(endpoint);
+
+    allResults.push(...data.results);
+  }
+
+  const uniqueGames = Array.from(
+    new Map(allResults.map((g) => [g.id, g])).values()
+  );
+
+  const freshGames = uniqueGames.filter((g) => !usedGameIds.has(g.id));
+
+  for (let i = freshGames.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [freshGames[i], freshGames[j]] = [freshGames[j], freshGames[i]];
+  }
+
+  const selected = freshGames.slice(0, limit);
+
+  selected.forEach((g) => usedGameIds.add(g.id));
+
+  if (usedGameIds.size > 500) {
+    usedGameIds.clear();
+  }
+
+  return selected.map((game) => ({
+    id: game.id,
+    name: cleanName(game.name),
+    image: game.background_image || '',
+  }));
 }
 
 export async function fetchCatalogGames(itemsPerPage, page, sortBy) {
