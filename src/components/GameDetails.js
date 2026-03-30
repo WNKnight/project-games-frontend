@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchGameDetails } from '../utils/GiantBombApi';
+import { fetchGameDetails } from '../utils/RawgApi';
 import Preloader from './Preloader';
 
 function GameDetails() {

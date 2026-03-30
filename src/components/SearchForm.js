@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchGamesBySearchTerm } from '../utils/GiantBombApi';
+import { fetchGamesBySearchTerm } from '../utils/RawgApi';
 import Preloader from './Preloader';
 import searchIcon from '../images/search-icon.png';
 

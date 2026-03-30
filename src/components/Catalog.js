@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchCatalogGames, fetchTotalGamesCount } from '../utils/GiantBombApi';
+import { fetchCatalogGames, fetchTotalGamesCount } from '../utils/RawgApi';
 import Preloader from './Preloader';
 import GameGrid from './GameGrid';
 import Pagination from './Pagination';

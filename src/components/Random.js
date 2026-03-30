@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GameGrid from './GameGrid';
-import { fetchRandomGames } from '../utils/GiantBombApi';
+import { fetchRandomGames } from '../utils/RawgApi';
 
 function Random() {
   const [games, setGames] = useState([]);
