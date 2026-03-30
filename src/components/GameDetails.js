@@ -15,7 +15,7 @@ function GameDetails() {
       setLoading(true);
       try {
         const fetchedGame = await fetchGameDetails(id);
-        const description = fetchedGame.description || fetchedGame.deck || 'No information available for this game.';
+        const description = fetchedGame.description || 'No information available for this game.';
         const cleanDescription = DOMPurify.sanitize(description, {
           FORBID_TAGS: ['a'],
         });
@@ -56,34 +56,6 @@ function GameDetails() {
         <strong>Description:</strong>
         <div className="game-details__description" dangerouslySetInnerHTML={{ __html: game.description }} />
       </div>
-      {game.franchises && game.franchises.length > 0 && (
-        <div className="game-details__franchises">
-          <h3>Franchises: </h3>
-          <ul className="game-details__franchises-list">
-            {game.franchises.map((franchise) => (
-              <li className="game-details__franchise-item" key={franchise.id}>
-                <Link to={`/franchise/${franchise.id}`} className="game-details__link">
-                  {franchise.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {game.characters && game.characters.length > 0 && (
-        <div className="game-details__characters">
-          <h3>Characters: </h3>
-          <ul className="game-details__characters-list">
-            {game.characters.map((character) => (
-              <li className="game-details__character-item" key={character.id}>
-                <Link to={`/character/${character.id}`} className="game-details__link">
-                  {character.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
       <p className="game-details__info">
         <strong>Developers: </strong> {game.developers.length ? game.developers.join(', ') : 'No information available'}
       </p>
@@ -99,20 +71,6 @@ function GameDetails() {
     <p className="game-details__info">
       <strong>Release Date: </strong> {formattedReleaseDate}
     </p>
-    {game.similarGames && game.similarGames.length > 0 && (
-      <div className="game-details__similar-games">
-        <h3 className="game-details__similar-games-title">Similar Games: </h3>
-        <ul className="game-details__similar-games-block">
-          {game.similarGames.map((similarGame) => (
-            <li className="game-details__similar-games-list" key={similarGame.id}>
-              <Link to={`/game/${similarGame.id}`} className="game-details__similar-link">
-                {similarGame.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
     </div>
     );
   };
