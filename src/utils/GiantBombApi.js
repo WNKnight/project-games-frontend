@@ -1,11 +1,8 @@
-const API_KEY = '9a9a64e0b46465097acdb253596d3973546b7f57';
+const API_KEY = '1f4b7eece0bf4cea8a54533bc589ea99';
+const BASE_URL = 'https://api.rawg.io/api';
 
 async function makeRequest(endpoint) {
-  const response = await fetch(endpoint, {
-    headers: {
-      'Authorization': `Bearer ${API_KEY}`
-    }
-  });
+  const response = await fetch(endpoint);
 
   if (!response.ok) {
     const errorText = await response.text();
