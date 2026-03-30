@@ -1,67 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { fetchCatalogGames, fetchTotalGamesCount } from '../utils/RawgApi';
+import { fetchGamesPage } from '../utils/RawgApi';
 import Preloader from './Preloader';
 import GameGrid from './GameGrid';
-import Pagination from './Pagination';
 
 function Catalog() {
-  const { page } = useParams();
-  const navigate = useNavigate();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [notFound, setNotFound] = useState(false);
-  const [sortBy, setSortBy] = useState('asc');
-  const [itemsPerPage, setItemsPerPage] = useState(12);
-  const [currentPage, setCurrentPage] = useState(Number(page) || 1);
-  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    const fetchGames = async () => {
+    const loadInitialGames = async () => {
       try {
         setLoading(true);
 
-        const [fetchedGames, totalGamesCount] = await Promise.all([
-          fetchCatalogGames(itemsPerPage, currentPage, sortBy),
-          fetchTotalGamesCount(),
-        ]);
+        const data = await fetchGamesPage(1);
 
-        if (fetchedGames.length === 0 && currentPage > 1) {
-          setNotFound(true);
-        } else {
-          setNotFound(false);
-        }
-
-        setGames(fetchedGames);
-        setTotalPages(Math.ceil(totalGamesCount / itemsPerPage));
+        setGames(data.games);
         setError(null);
       } catch (err) {
-        setError('Error when searching for games. Try again later.');
+        setError('Error when loading games. Try again later.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchGames();
-  }, [itemsPerPage, currentPage, sortBy]);
-
-  const handleChangeSortOrder = (e) => {
-    setSortBy(e.target.value);
-    setCurrentPage(1);
-    navigate(`/catalog/1`);
-  };
-
-  const handleChangeItemsPerPage = (e) => {
-    setItemsPerPage(Number(e.target.value));
-    setCurrentPage(1);
-    navigate(`/catalog/1`);
-  };
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    navigate(`/catalog/${pageNumber}`);
-  };
+    loadInitialGames();
+  }, []);
 
   if (loading) {
     return <Preloader />;
@@ -71,38 +35,12 @@ function Catalog() {
     return <div>Error: {error}</div>;
   }
 
-  if (notFound) {
-    return <div>Nothing Found</div>;
-  }
-
   return (
     <div className='catalog'>
       <h2 className="catalog__title">Game Catalog</h2>
-      <div className='catalog__order'>
-        <label className="catalog__order-block">
-        Order by:
-          <select value={sortBy} onChange={handleChangeSortOrder}>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>
-        </label>
-        <label className="catalog__order-block">
-        Items per page:
-          <select value={itemsPerPage} onChange={handleChangeItemsPerPage}>
-            <option value={12}>12</option>
-            <option value={20}>20</option>
-            <option value={40}>40</option>
-          </select>
-        </label>
-      </div>
       <GameGrid games={games} />
-      <Pagination 
-        currentPage={currentPage} 
-        totalPages={totalPages} 
-        onPageChange={handlePageChange} 
-      />
     </div>
   );
-};
+}
 
 export default Catalog;
