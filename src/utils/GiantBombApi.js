@@ -36,7 +36,6 @@ async function fetchGames({ limit = 12, page = 1, ordering }) {
   }));
 }
 
-
 export async function fetchRandomGames(limit = 12) {
   const page = Math.floor(Math.random() * 50) + 1;
   return fetchGames({
@@ -56,16 +55,15 @@ export async function fetchCatalogGames(itemsPerPage, page, sortBy) {
   });
 }
 
-
 export async function fetchTotalGamesCount() {
-  const endpoint = `/api/games/?api_key=${API_KEY}&format=json`;
+  const endpoint = `${BASE_URL}/games?key=${API_KEY}&page_size=1`;
   const data = await makeRequest(endpoint);
 
-  if (!data.number_of_total_results) {
-    throw new Error('No total results count found in the response');
+  if (!data.count) {
+    throw new Error('No total count found in the response');
   }
 
-  return data.number_of_total_results;
+  return data.count;
 }
 
 export async function fetchGamesBySearchTerm(searchTerm) {

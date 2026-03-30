@@ -22,11 +22,10 @@ function Catalog() {
       try {
         setLoading(true);
 
-        const fetchedGames = await fetchCatalogGames(
-          itemsPerPage,
-          currentPage,
-          sortBy
-        );
+        const [fetchedGames, totalGamesCount] = await Promise.all([
+          fetchCatalogGames(itemsPerPage, currentPage, sortBy),
+          fetchTotalGamesCount(),
+        ]);
 
         if (fetchedGames.length === 0 && currentPage > 1) {
           setNotFound(true);
@@ -35,7 +34,7 @@ function Catalog() {
         }
 
         setGames(fetchedGames);
-        setTotalPages(500); // TODO: replace with RAWG count
+        setTotalPages(Math.ceil(totalGamesCount / itemsPerPage));
         setError(null);
       } catch (err) {
         setError('Error when searching for games. Try again later.');
