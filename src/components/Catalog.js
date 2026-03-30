@@ -13,7 +13,7 @@ function Catalog() {
   const [error, setError] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [sortBy, setSortBy] = useState('asc');
-  const [itemsPerPage, setItemsPerPage] = useState(24);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(Number(page) || 1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -46,8 +46,10 @@ function Catalog() {
     fetchGames();
   }, [itemsPerPage, currentPage, sortBy]);
 
-  const handleChangeSortOrder = () => {
-    setSortBy(sortBy === 'asc' ? 'desc' : 'asc');
+  const handleChangeSortOrder = (e) => {
+    setSortBy(e.target.value);
+    setCurrentPage(1);
+    navigate(`/catalog/1`);
   };
 
   const handleChangeItemsPerPage = (e) => {
@@ -87,9 +89,9 @@ function Catalog() {
         <label className="catalog__order-block">
         Items per page:
           <select value={itemsPerPage} onChange={handleChangeItemsPerPage}>
-            <option value={24}>24</option>
-            <option value={48}>48</option>
-            <option value={100}>100</option>
+            <option value={12}>12</option>
+            <option value={20}>20</option>
+            <option value={40}>40</option>
           </select>
         </label>
       </div>
