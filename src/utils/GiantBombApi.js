@@ -12,12 +12,13 @@ async function makeRequest(endpoint) {
   return response.json();
 }
 
-function cleanName(name) {
-  return name.replace(/[^a-zA-Z0-9\s]/g, '').trim();
+function cleanName(name) { 
+  return name?.replace(/[^a-zA-Z0-9\s]/g, '').trim() || '';
 }
 
-async function fetchGames({ limit, offset, sortOrder }) {
-  const endpoint = `/api/games/?api_key=${API_KEY}&format=json&limit=${limit}&offset=${offset}&sort=${sortOrder}`;
+async function fetchGames({ limit, page, ordering }) {
+  const endpoint = `${BASE_URL}/games?key=${API_KEY}`;
+
   const data = await makeRequest(endpoint);
 
   if (!data.results) {
@@ -27,8 +28,7 @@ async function fetchGames({ limit, offset, sortOrder }) {
   return data.results.map((game) => ({
     id: game.id,
     name: cleanName(game.name),
-    image: game.image.thumb_url,
-    deck: game.deck
+    image: game.background_image || '',
   }));
 }
 
