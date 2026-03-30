@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchGameDetails } from '../utils/GiantBombApi';
-import DOMPurify from 'dompurify';
 import Preloader from './Preloader';
 
 function GameDetails() {
@@ -16,10 +15,8 @@ function GameDetails() {
       try {
         const fetchedGame = await fetchGameDetails(id);
         const description = fetchedGame.description || 'No information available for this game.';
-        const cleanDescription = DOMPurify.sanitize(description, {
-          FORBID_TAGS: ['a'],
-        });
-        setGame({ ...fetchedGame, description: cleanDescription });
+        setGame({...fetchedGame,description:fetchedGame.description || 'No information available for this game.',
+});
         setError(null);
       } catch (err) {
         setError(
@@ -54,7 +51,7 @@ function GameDetails() {
       </div>
       <div className="game-details__block">
         <strong>Description:</strong>
-        <div className="game-details__description" dangerouslySetInnerHTML={{ __html: game.description }} />
+        <div className="game-details__description">{game.description}</div>
       </div>
       <p className="game-details__info">
         <strong>Developers: </strong> {game.developers.length ? game.developers.join(', ') : 'No information available'}
