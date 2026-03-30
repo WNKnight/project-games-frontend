@@ -91,27 +91,23 @@ export async function fetchGamesBySearchTerm(searchTerm) {
 }
 
 export async function fetchGameDetails(id) {
-  const endpoint = `/api/game/${id}/?api_key=${API_KEY}&format=json`;
+  const endpoint = `${BASE_URL}/games/${id}?key=${API_KEY}`;
   const data = await makeRequest(endpoint);
 
-  if (!data.results) {
-    throw new Error('No results found in the response');
+  if (!data) {
+    throw new Error('No data found in the response');
   }
 
-  const { results } = data;
   return {
-    id: results.id,
-    name: results.name,
-    image: results.image.super_url,
-    description: results.description,
-    characters: results.characters?.map((char) => ({ id: char.id, name: char.name })) || [],
-    developers: results.developers?.map((dev) => dev.name) || [],
-    franchises: results.franchises?.map((franchise) => ({ id: franchise.id, name: franchise.name })) || [],
-    platforms: results.platforms?.map((platform) => platform.name) || [],
-    publishers: results.publishers?.map((publisher) => publisher.name) || [],
-    genres: results.genres?.map((genre) => genre.name) || [],
-    releaseDate: results.original_release_date,
-    similarGames: results.similar_games?.map((game) => ({ id: game.id, name: game.name })) || [],
+    id: data.id,
+    name: data.name,
+    image: data.background_image || '',
+    description: data.description_raw || '',
+    developers: data.developers?.map((dev) => dev.name) || [],
+    platforms: data.platforms?.map((p) => p.platform.name) || [],
+    publishers: data.publishers?.map((pub) => pub.name) || [],
+    genres: data.genres?.map((genre) => genre.name) || [],
+    releaseDate: data.released || '',
   };
 }
 
