@@ -14,9 +14,10 @@ function GameDetails() {
       setLoading(true);
       try {
         const fetchedGame = await fetchGameDetails(id);
-        const description = fetchedGame.description || 'No information available for this game.';
-        setGame({...fetchedGame,description:fetchedGame.description || 'No information available for this game.',
-});
+        setGame({
+          ...fetchedGame,
+          description: fetchedGame.description || 'No information available for this game.',
+        });
         setError(null);
       } catch (err) {
         setError(
