@@ -69,11 +69,12 @@ export async function fetchTotalGamesCount() {
 }
 
 export async function fetchGamesBySearchTerm(searchTerm) {
-  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
-  const endpoint = `/api/games/?api_key=${API_KEY}&format=json&filter=name:${normalizedSearchTerm}`;
+  const normalizedSearchTerm = searchTerm.trim();
+  const endpoint = `${BASE_URL}/games?key=${API_KEY}&search=${encodeURIComponent(normalizedSearchTerm)}`;
 
   try {
     const data = await makeRequest(endpoint);
+
     if (!data.results) {
       throw new Error('No results found in the response');
     }
@@ -81,7 +82,7 @@ export async function fetchGamesBySearchTerm(searchTerm) {
     return data.results.map((game) => ({
       id: game.id,
       name: game.name,
-      image: game.image.original_url,
+      image: game.background_image || '',
     }));
   } catch (error) {
     console.error('Error fetching games:', error);
