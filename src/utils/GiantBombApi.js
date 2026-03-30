@@ -16,8 +16,12 @@ function cleanName(name) {
   return name?.replace(/[^a-zA-Z0-9\s]/g, '').trim() || '';
 }
 
-async function fetchGames({ limit, page, ordering }) {
-  const endpoint = `${BASE_URL}/games?key=${API_KEY}`;
+async function fetchGames({ limit = 12, page = 1, ordering }) {
+  let endpoint = `${BASE_URL}/games?key=${API_KEY}&page_size=${limit}&page=${page}`;
+
+  if (ordering) {
+    endpoint += `&ordering=${ordering}`;
+  }
 
   const data = await makeRequest(endpoint);
 
@@ -38,11 +42,14 @@ export async function fetchRandomGames(limit = 12) {
   return fetchGames({ limit, offset, sortOrder: null });
 }
 
-export async function fetchCatalogGames(itemsPerPage, offset, sortBy) {
-  const sortOrder = sortBy === 'asc' ? 'name:asc' : 'name:desc';
-  console.log(`Fetching catalog games with itemsPerPage: ${itemsPerPage}, offset: ${offset}, sortOrder: ${sortOrder}`); // Adicione este log para verificar os parâmetros
+export async function fetchCatalogGames(itemsPerPage, page, sortBy) {
+  const ordering = sortBy === 'asc' ? 'name' : '-name';
 
-  return fetchGames({ limit: itemsPerPage, offset, sortOrder });
+  return fetchGames({
+    limit: itemsPerPage,
+    page,
+    ordering,
+  });
 }
 
 

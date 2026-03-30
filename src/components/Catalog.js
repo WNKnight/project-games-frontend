@@ -21,9 +21,13 @@ function Catalog() {
     const fetchGames = async () => {
       try {
         setLoading(true);
-        const totalGamesCount = await fetchTotalGamesCount();
-        const fetchedGames = await fetchCatalogGames(itemsPerPage, (currentPage - 1) * itemsPerPage, sortBy);
-        
+
+        const fetchedGames = await fetchCatalogGames(
+          itemsPerPage,
+          currentPage,
+          sortBy
+        );
+
         if (fetchedGames.length === 0 && currentPage > 1) {
           setNotFound(true);
         } else {
@@ -31,7 +35,7 @@ function Catalog() {
         }
 
         setGames(fetchedGames);
-        setTotalPages(Math.ceil(totalGamesCount / itemsPerPage));
+        setTotalPages(500); // TODO: replace with RAWG count
         setError(null);
       } catch (err) {
         setError('Error when searching for games. Try again later.');
@@ -39,7 +43,7 @@ function Catalog() {
         setLoading(false);
       }
     };
-    
+
     fetchGames();
   }, [itemsPerPage, currentPage, sortBy]);
 
