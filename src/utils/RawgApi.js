@@ -12,28 +12,37 @@ async function makeRequest(endpoint) {
   return response.json();
 }
 
-function cleanName(name) { 
-  return name?.replace(/[^a-zA-Z0-9\s]/g, '').trim() || '';
+function cleanName(name) {
+  if (!name) return 'Unknown Game';
+
+  const cleaned = name.replace(/[^\p{L}\p{N}\s]/gu, '').trim();
+
+  return cleaned.length > 0 ? cleaned : 'Unknown Game';
 }
 
-async function fetchGames({ limit = 12, page = 1, ordering }) {
-  let endpoint = `${BASE_URL}/games?key=${API_KEY}&page_size=${limit}&page=${page}`;
+export async function fetchGames({ limit = 12, page = 1, sortBy }) {
+  const pagesToFetch = 3;
 
-  if (ordering) {
-    endpoint += `&ordering=${ordering}`;
+  let allResults = [];
+
+  for (let i = 1; i <= pagesToFetch; i++) {
+    const endpoint = `${BASE_URL}/games?key=${API_KEY}&page=${i}&page_size=40`;
+    const data = await makeRequest(endpoint);
+    allResults.push(...data.results);
   }
 
-  const data = await makeRequest(endpoint);
-
-  if (!data.results) {
-    throw new Error('No results found in the response');
-  }
-
-  return data.results.map((game) => ({
-    id: game.id,
-    name: cleanName(game.name),
-    image: game.background_image || '',
-  }));
+  return allResults
+    .map((game) => ({
+      id: game.id,
+      name: cleanName(game.name),
+      image: game.background_image || '',
+    }))
+    .sort((a, b) =>
+      sortBy === 'asc'
+        ? a.name.localeCompare(b.name, 'en', { sensitivity: 'base' })
+        : b.name.localeCompare(a.name, 'en', { sensitivity: 'base' })
+    )
+    .slice((page - 1) * limit, page * limit);
 }
 
 export async function fetchRandomGames(limit = 12) {
@@ -46,12 +55,10 @@ export async function fetchRandomGames(limit = 12) {
 }
 
 export async function fetchCatalogGames(itemsPerPage, page, sortBy) {
-  const ordering = sortBy === 'asc' ? 'name' : '-name';
-
   return fetchGames({
     limit: itemsPerPage,
     page,
-    ordering,
+    sortBy
   });
 }
 
