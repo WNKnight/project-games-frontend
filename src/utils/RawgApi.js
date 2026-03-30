@@ -46,12 +46,11 @@ export async function fetchGames({ limit = 12, page = 1, sortBy }) {
 }
 
 export async function fetchRandomGames(limit = 12) {
-  const page = Math.floor(Math.random() * 50) + 1;
-  return fetchGames({
-    limit,
-    page,
-  });
-  
+const games = await fetchGames({ limit: 40, page: 1 });
+
+return games
+  .sort(() => Math.random() - 0.5)
+  .slice(0, limit); 
 }
 
 export async function fetchCatalogGames(itemsPerPage, page, sortBy) {
