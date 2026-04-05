@@ -55,4 +55,13 @@
     z-index: 1000;
     padding: 10px 15px;
   }
+
+  .header__title {
+    font-size: 1.2rem;
+  }
+
+  .header__logo {
+    width: 30px;
+    height: 30px;
+  }
 }
