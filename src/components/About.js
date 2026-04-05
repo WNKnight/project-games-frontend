@@ -40,7 +40,7 @@ function AboutMe() {
           <h3 className="about__subtitle">Find me on:</h3>
           <div className="about__links-list">
           <a
-            href="https://github.com/"
+            href="https://github.com/WMonteiroDev"
             target="_blank"
             rel="noreferrer"
             className="about__link about__link--github"
@@ -53,7 +53,7 @@ function AboutMe() {
             <span className="about__link-text">GitHub</span>
           </a>
           <a
-            href="https://linkedin.com/"
+            href="https://www.linkedin.com/in/wesley-monteiro-149404225/"
             target="_blank"
             rel="noreferrer"
             className="about__link about__link--linkedin"
