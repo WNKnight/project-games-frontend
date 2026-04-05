@@ -5,70 +5,98 @@ import GameGrid from './GameGrid';
 
 function Catalog() {
   const [games, setGames] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
 
   const observerRef = useRef(null);
+  const pageRef = useRef(1);
+  const loadingRef = useRef(false);
+  const hasMoreRef = useRef(true);
 
-const loadMoreGames = useCallback(async () => {
-  if (loading || !hasMore) return;
+  const loadMoreGames = useCallback(async () => {
+    if (loadingRef.current || !hasMoreRef.current) return;
 
-  try {
+    loadingRef.current = true;
     setLoading(true);
 
-    const data = await fetchGamesPage(page);
+    try {
+      const currentPage = pageRef.current;
+      const data = await fetchGamesPage(currentPage);
 
-    setGames((prev) => [...prev, ...data.games]);
-    setPage((prev) => prev + 1);
+      setGames((prevGames) => {
+        const existingIds = new Set(prevGames.map((game) => game.id));
+        const uniqueNewGames = data.games.filter((game) => !existingIds.has(game.id));
+        return [...prevGames, ...uniqueNewGames];
+      });
 
-    if (!data.next) {
-      setHasMore(false);
+      pageRef.current = currentPage + 1;
+
+      const moreAvailable = Boolean(data.next);
+      hasMoreRef.current = moreAvailable;
+      setHasMore(moreAvailable);
+
+      setError(null);
+    } catch (err) {
+      setError('Error loading more games.');
+    } finally {
+      loadingRef.current = false;
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadMoreGames();
+  }, [loadMoreGames]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreGames();
+        }
+      },
+      {
+        root: null,
+        rootMargin: '200px',
+        threshold: 0,
+      }
+    );
+
+    const currentObserver = observerRef.current;
+
+    if (currentObserver) {
+      observer.observe(currentObserver);
     }
 
-    setError(null);
-  } catch (err) {
-    setError('Error loading more games.');
-  } finally {
-    setLoading(false);
-  }
-}, [page, loading, hasMore]);
-
-useEffect(() => {
-  loadMoreGames();
-}, [loadMoreGames]);
-
-useEffect(() => {
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      loadMoreGames();
-    }
-  });
-
-  if (observerRef.current) {
-    observer.observe(observerRef.current);
-  }
-
-  return () => observer.disconnect();
-}, [loadMoreGames]);
+    return () => {
+      if (currentObserver) {
+        observer.unobserve(currentObserver);
+      }
+      observer.disconnect();
+    };
+  }, [loadMoreGames]);
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="catalog__message catalog__message--error">{error}</div>;
   }
 
   return (
-    <div className='catalog'>
+    <section className="catalog">
       <h2 className="catalog__title">Game Catalog</h2>
 
       <GameGrid games={games} />
 
       {loading && <Preloader />}
 
-      <div ref={observerRef} style={{ height: '20px' }} />
+      <div ref={observerRef} className="catalog__sentinel" />
 
-      {!hasMore && <p style={{ textAlign: 'center' }}>No more games</p>}
-    </div>
+      {!hasMore && (
+        <p className="catalog__message catalog__message--end">
+          No more games
+        </p>
+      )}
+    </section>
   );
 }
 
