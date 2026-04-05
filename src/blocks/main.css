@@ -4,6 +4,9 @@
     justify-content: center;
     align-items: center;
     min-height: calc(100vh - 100px); 
+    overflow: visible;
+    position: relative;
+    z-index: 1;
   }
   
   .main__content {
