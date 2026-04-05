@@ -5,19 +5,15 @@ import GithubIcon from '../images/github-icon.svg';
 function AboutMe() {
   return (
     <section className="about">
-
       <h2 className="about__title">About Me</h2>
-
       <div className="about__content">
         <div className="about__text-block">
           <p className="about__text">
             Hello, my name is Wesley, and I am currently focused on becoming a Frontend Developer. I enjoy building user interfaces and creating modern, interactive experiences.
           </p>
-
           <p className="about__text">
             I work with React, JavaScript, TypeScript, and Tailwind CSS, constantly improving my skills through projects like this one.
           </p>
-
           <p className="about__text">
             Outside of coding, I enjoy FPS, RPG, hack and slash, and choice-driven games, as well as reading horror books.
           </p>
@@ -33,7 +29,6 @@ function AboutMe() {
         </div>
         <div className="about__genres">
           <h3 className="about__subtitle">Favorite Genres</h3>
-
           <div className="about__genres-list">
             <span>🎯 FPS</span>
             <span>⚔️ Hack & Slash</span>
