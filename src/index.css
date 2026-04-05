@@ -12,6 +12,7 @@
 @import url(./blocks/random.css);
 @import url(./blocks/about.css);
 @import url(./blocks/footer.css);
+@import url(./blocks/particles.css);
 
 body {
   margin: 0;

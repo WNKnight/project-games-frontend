@@ -9,10 +9,12 @@ import GameDetails from './GameDetails';
 import About from './About';
 import NotFound from './NotFound';
 import Footer from './Footer';
+import ParticlesBackground from './ParticlesBackground';
 
 function App() {
   return (
     <div className="page">
+      <ParticlesBackground />
       <Header />
       <Main>
         <Routes>
