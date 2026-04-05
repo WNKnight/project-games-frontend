@@ -36,9 +36,9 @@ function Random() {
     <div className="random-games">
       <h2 className="random-games__title">Home</h2>
       <h2 className="random-games__subtitle">This Page Has Random Games, if you want to see different games click in the refresh button!</h2>
-      <div className="random-games__btn" onClick={handleRefresh}>
-        <button>Refresh</button>
-      </div>
+      <button className="random-games__btn" onClick={handleRefresh}>
+        Refresh
+      </button>
       {error && <div className="error-message">{error}</div>}
       <GameGrid games={games} loading={loading} />
     </div>
