@@ -1,16 +1,26 @@
 import React from 'react';
 import GameCard from './GameCard';
-import Preloader from './Preloader'
+import Preloader from './Preloader';
 
 function GameGrid({ games, loading }) {
   return (
     <div className="game-grid">
       <div className="game-grid__content">
-        {games.map((game, index) => (
-          <GameCard key={`${game.id}-${index}`} game={game} />
-        ))}
+        {loading && games.length === 0
+          ? Array.from({ length: 9 }).map((_, i) => (
+              <div key={i} className="game-card skeleton-card"></div>
+            ))
+          : games.map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))
+        }
+
       </div>
-      {loading && <Preloader />}
+      {loading && games.length > 0 && (
+        <div className="game-grid__loader">
+          <Preloader />
+        </div>
+      )}
     </div>
   );
 }
