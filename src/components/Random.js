@@ -29,7 +29,10 @@ function Random() {
 
   const handleRefresh = () => {
     setLoading(true);
-    loadRandomGames();
+    setTimeout(() => {
+      setGames([]);
+      loadRandomGames();
+    }, 150);
   };
 
   return (
