@@ -153,9 +153,4 @@
   .about__text {
     font-size: 0.95rem;
   }
-
-  .about__links-list {
-    flex-direction: column;
-    align-items: center;
-  }
 }
