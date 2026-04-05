@@ -25,6 +25,7 @@ body {
   padding: 0;
   line-height: 1.6;
   background: radial-gradient(circle at top, #1a1a2e, #0d0d15);
+  overflow-x: hidden;
 }
 
 code {
@@ -35,4 +36,8 @@ code {
 .page {
   text-align: center;
   width: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
