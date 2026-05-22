@@ -9,7 +9,6 @@ function GameCard({ game }){
         <img src={game.image} alt={game.name} className="game-card__image" />
         <div className="game-card__block-info">
           <h3 className="game-card__title">{game.name}</h3>
-          <p className="game-card__description">{game.deck}</p>
         </div>
       </div>
     </Link>

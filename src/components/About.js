@@ -1,20 +1,75 @@
 import React from 'react';
+import LinkedinIcon from '../images/linkedin-icon.svg';
+import GithubIcon from '../images/github-icon.svg'; 
 
 function AboutMe() {
   return (
-    <div className="about-me">
-      <h2 className="about-me__title">About Me</h2>
-      <p className="about-me__text">
-        Hello, my name is Wesley, a technology and software development enthusiast. I am constantly seeking to learn new skills and improve my knowledge in the field of programming.
-      </p>
-      <p className="about-me__text">
-        This website was created as part of my project portfolio, where I share my work and experiences.
-      </p>
-      <p className="about-me__text">
-        Besides website development, I am also interested in game development. Outside the world of technology, I enjoy reading and playing games.
-      </p>
-    </div>
+    <section className="about">
+      <h2 className="about__title">About Me</h2>
+      <div className="about__content">
+        <div className="about__text-block">
+          <p className="about__text">
+            Hello, my name is Wesley, and I am currently focused on becoming a Frontend Developer. I enjoy building user interfaces and creating modern, interactive experiences.
+          </p>
+          <p className="about__text">
+            I work with React, JavaScript, TypeScript, and Tailwind CSS, constantly improving my skills through projects like this one.
+          </p>
+          <p className="about__text">
+            Outside of coding, I enjoy FPS, RPG, hack and slash, and choice-driven games, as well as reading horror books.
+          </p>
+        </div>
+        <div className="about__skills">
+          <h3 className="about__subtitle">Skills</h3>
+          <div className="about__badges">
+            <span className="about__badge">React</span>
+            <span className="about__badge">JavaScript</span>
+            <span className="about__badge">TypeScript</span>
+            <span className="about__badge">Tailwind CSS</span>
+          </div>
+        </div>
+        <div className="about__genres">
+          <h3 className="about__subtitle">Favorite Genres</h3>
+          <div className="about__genres-list">
+            <span>🎯 FPS</span>
+            <span>⚔️ Hack & Slash</span>
+            <span>🧙 RPG</span>
+            <span>🧠 Choice-driven</span>
+          </div>
+        </div>
+        <div className="about__links">
+          <h3 className="about__subtitle">Find me on:</h3>
+          <div className="about__links-list">
+          <a
+            href="https://github.com/WMonteiroDev"
+            target="_blank"
+            rel="noreferrer"
+            className="about__link about__link--github"
+          >
+            <img
+              src={GithubIcon}
+              alt="GitHub"
+              className="about__link-icon"
+            />
+            <span className="about__link-text">GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/wesley-monteiro-149404225/"
+            target="_blank"
+            rel="noreferrer"
+            className="about__link about__link--linkedin"
+          >
+            <img
+              src={LinkedinIcon}
+              alt="LinkedIn"
+              className="about__link-icon"
+            />
+            <span className="about__link-text">LinkedIn</span>
+          </a>
+          </div>
+        </div>
+      </div>
+    </section>
   );
-};
+}
 
 export default AboutMe;

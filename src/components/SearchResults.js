@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import GameGrid from './GameGrid';
-import { fetchGamesBySearchTerm } from '../utils/GiantBombApi';
+import { fetchGamesBySearchTerm } from '../utils/RawgApi';
 import Preloader from './Preloader';
 
 function SearchResults() {
@@ -39,7 +39,7 @@ function SearchResults() {
 
   return (
     <div className="search-results">
-      <h2>Search Results for "{query}"</h2>
+      <h2 className="search-results__title">Search Results for "{query}"</h2>
       {error ? (
         <div className="error-message">{error}</div>
       ) : (
